@@ -3,13 +3,15 @@
 
 AgenticTribunal is a powerful, production-ready React application engineered to orchestrate high-fidelity, adversarial multi-agent debate workflows. By isolating agents in sequential sessions and leveraging a professional-grade prompt compiler, the system breaks the boundaries of typical single-threaded LLM biases, logical echo chambers, and context-poisoning loops.
 
-With **Version 2.0**, AgenticTribunal transitions to a fully heterogeneous multi-model architecture, where each actor in the institution can independently use different models and parameters discoverable dynamically from local or cloud servers.
+With **Version 2.0**, AgenticTribunal transitions to a fully heterogeneous multi-model architecture, where each actor in the institution can independently use different models and parameters discoverable dynamically from local or cloud servers. NOTE: At this time, all elements work with local LLM implementations except the initial system  prompt generation 
 <img width="1327" height="785" alt="Screenshot 2026-06-12 204125" src="https://github.com/user-attachments/assets/e04d49b0-580e-4190-8b4a-17c2ab51b84e" />
 
 ---
 
 ## 🎯 Project Core Purpose
 When querying complex concepts using individual LLMs, outputs often suffer from self-reinforcing biases or flat justifications. AgenticTribunal counters this by instituting a structured, adversarial deliberation structure:
+
+<img width="850" height="628" alt="Screenshot 2026-06-12 215903" src="https://github.com/user-attachments/assets/183dd4d0-7e51-4faa-934e-b18c5c239341" />
 
 1. **The Defender Attorney (Advocate):** Focuses exclusively on building a robust, logical, and evidence-driven case in favor of the core claim.
 2. **The Prosecuting Attorney (Critic):** Identifies hidden assumptions, logical fallacies, systemic vulnerabilities, and structural weaknesses in the Defender's case.
