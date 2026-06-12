@@ -4,6 +4,7 @@
 AgenticTribunal is a powerful, production-ready React application engineered to orchestrate high-fidelity, adversarial multi-agent debate workflows. By isolating agents in sequential sessions and leveraging a professional-grade prompt compiler, the system breaks the boundaries of typical single-threaded LLM biases, logical echo chambers, and context-poisoning loops.
 
 With **Version 2.0**, AgenticTribunal transitions to a fully heterogeneous multi-model architecture, where each actor in the institution can independently use different models and parameters discoverable dynamically from local or cloud servers.
+<img width="1327" height="785" alt="Screenshot 2026-06-12 204125" src="https://github.com/user-attachments/assets/e04d49b0-580e-4190-8b4a-17c2ab51b84e" />
 
 ---
 
@@ -14,6 +15,7 @@ When querying complex concepts using individual LLMs, outputs often suffer from 
 2. **The Prosecuting Attorney (Critic):** Identifies hidden assumptions, logical fallacies, systemic vulnerabilities, and structural weaknesses in the Defender's case.
 3. **The Chief Presiding Judge (Synthesis):** Resolves contradictions, monitors logical integrity, provides interim feedback guidance, and delivers a rigorous, objective final synthesis and verdict.
 4. **The Seated Citizen Jury (Empirical Sway Tracker):** A fully customizable group of non-expert citizens with unique professional biases (e.g., Forensic Accountant, UX Designer, Carpenter) who measure real-world message clarity.
+<img width="211" height="305" alt="Screenshot 2026-06-12 210727" src="https://github.com/user-attachments/assets/70a05692-0124-419d-b3a0-068de9ff3d33" />
 
 ---
 
