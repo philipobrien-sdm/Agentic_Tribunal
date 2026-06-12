@@ -1,0 +1,6 @@
+{
+  "name": "LLM Multi-Agent Debate Arena",
+  "description": "Orchestrate structured, multi-agent debate workflows with prosecutors, defenders, judges, and juries using local or seed LLMs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
