@@ -68,6 +68,51 @@ export interface DebateWorkflow {
   defaultClaim: string;
 }
 
+export interface ConcessionMap {
+  defender: string[];
+  prosecutor: string[];
+  judge: string[];
+}
+
+export interface ArgumentGraph {
+  supported: string[];
+  challenged: string[];
+  unresolved: string[];
+  rejected: string[];
+  conceded: string[];
+}
+
+export interface InstitutionalRecord {
+  findingsOfFact: string[];
+  contestedIssues: string[];
+  concessions: string[];
+  unresolvedQuestions: string[];
+  definitions: string[];
+  keyEvidence: string[];
+  confidenceLevels: string; // "Low" | "Moderate" | "High"
+}
+
+export interface MajorityOpinion {
+  conclusions: string[];
+  reasoning: string[];
+  confidence: string;
+}
+
+export interface DissentingOpinion {
+  principalObjections: string[];
+  alternativeInterpretations: string[];
+  remainingRisks: string[];
+  confidence: string;
+}
+
+export interface MinorityReport {
+  id: string;
+  dissenter: string;
+  position: string;
+  reasoning: string;
+  possibleHiddenIssue: string;
+}
+
 export interface DebateSession {
   id: string;
   claim: string;
@@ -81,4 +126,43 @@ export interface DebateSession {
   juryCount: number;
   chatLogs: string; // Plain text details
   error?: string;
+  // v3 Institutional memory layer
+  institutionalRecord?: InstitutionalRecord;
+  majorityOpinion?: MajorityOpinion;
+  dissentingOpinion?: DissentingOpinion;
+  minorityReports?: MinorityReport[];
+  concessionMap?: ConcessionMap;
+  argumentGraph?: ArgumentGraph;
+  activeCompressionWordCount?: number; // Automatic compression trigger word limit
+  // v3.5 Persistent Actor Archives & Human-in-the-loop additions
+  promotedItems?: Array<{
+    id: string;
+    category: "Key Fact" | "Key Objection" | "Important Evidence" | "Hidden Assumption" | "Practical Concern" | "Ethical Concern" | "Unresolved Question";
+    content: string;
+    actor: string;
+    timestamp: string;
+  }>;
+  targetedFlags?: Array<{
+    id: string;
+    targetActor: string; // "jury" | "defender" | "prosecutor" | "judge" | "evidence_clerk" | "practical_judge" | "ethical_judge" | "scientific_judge" | "contrarian_auditor";
+    snippet: string;
+    note?: string;
+    timestamp: string;
+  }>;
+  humanNotes?: string;
+  humanConfidence?: number;
+  neverCompressLogs?: string[]; // array of message IDs marked "Never Compress"
+  humanReflectionAnswers?: {
+    overlooked?: string;
+    strongest?: string;
+    unclear?: string;
+    converging?: string;
+  };
+  humanConcernReports?: Array<{
+    id: string;
+    observation: string;
+    actorsAddressingIt: string[];
+    unansweredIssues: string;
+    recommendation: string;
+  }>;
 }

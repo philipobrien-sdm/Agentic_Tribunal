@@ -163,26 +163,73 @@ Format output EXACTLY as this JSON structure:
         }
         const cleanEndpoint = endpointUrl.replace(/\/$/, "");
 
-        const response = await fetch(`${cleanEndpoint}/chat/completions`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...(llmConfig.apiKey ? { "Authorization": `Bearer ${llmConfig.apiKey}` } : {})
-          },
-          body: JSON.stringify({
-            model: modelName || "llama3.1",
-            messages: [
-              { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
-              { role: "user", content: architectPrompt }
-            ],
-            temperature: 0.3,
-            response_format: { type: "json_object" }
-          })
-        });
+        let response;
+        try {
+          response = await fetch(`${cleanEndpoint}/chat/completions`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...(llmConfig.apiKey ? { "Authorization": `Bearer ${llmConfig.apiKey}` } : {})
+            },
+            body: JSON.stringify({
+              model: modelName || "llama3.1",
+              messages: [
+                { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
+                { role: "user", content: architectPrompt }
+              ],
+              temperature: 0.3,
+              response_format: { type: "json_object" }
+            })
+          });
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Custom LLM endpoint responded with status ${response.status}: ${errorText}`);
+          if (!response.ok) {
+            const errorText = await response.text();
+            if (response.status === 400 && (errorText.includes("response_format") || errorText.includes("schema") || errorText.includes("type"))) {
+              // Retry without response_format
+              response = await fetch(`${cleanEndpoint}/chat/completions`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  ...(llmConfig.apiKey ? { "Authorization": `Bearer ${llmConfig.apiKey}` } : {})
+                },
+                body: JSON.stringify({
+                  model: modelName || "llama3.1",
+                  messages: [
+                    { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
+                    { role: "user", content: architectPrompt }
+                  ],
+                  temperature: 0.3
+                })
+              });
+            } else {
+              throw new Error(`Custom LLM endpoint responded with status ${response.status}: ${errorText}`);
+            }
+          }
+        } catch (err: any) {
+          try {
+            response = await fetch(`${cleanEndpoint}/chat/completions`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                ...(llmConfig.apiKey ? { "Authorization": `Bearer ${llmConfig.apiKey}` } : {})
+              },
+              body: JSON.stringify({
+                model: modelName || "llama3.1",
+                messages: [
+                  { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
+                  { role: "user", content: architectPrompt }
+                ],
+                temperature: 0.3
+              })
+            });
+          } catch (innerErr: any) {
+            throw new Error(`Prompt Architect generation call failed: ${err.message || err}. Retry call failure: ${innerErr.message || innerErr}`);
+          }
+        }
+
+        if (!response || !response.ok) {
+          const errorText = response ? await response.text() : "No response";
+          throw new Error(`Custom LLM endpoint responded with status ${response ? response.status : "unknown"}: ${errorText}`);
         }
 
         const responseData: any = await response.json();

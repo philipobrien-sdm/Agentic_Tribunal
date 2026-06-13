@@ -1,23 +1,20 @@
 # AgenticTribunal ⚖️
-## LLM Multi-Agent Debate Arena (v2.0.0 — Heterogeneous Institutions)
+## LLM Multi-Agent Debate Arena (v3.5.0 — Persistent Actor Archives & Human-in-the-Loop)
 
-AgenticTribunal is a powerful, production-ready React application engineered to orchestrate high-fidelity, adversarial multi-agent debate workflows. By isolating agents in sequential sessions and leveraging a professional-grade prompt compiler, the system breaks the boundaries of typical single-threaded LLM biases, logical echo chambers, and context-poisoning loops.
+AgenticTribunal is a high-fidelity, adversarial multi-agent debate and legal institutional simulation. By isolating agents in sequential sessions and leveraging a professional prompt compiler, the system breaks the boundaries of traditional single-threaded LLM biases, logical echo chambers, and context-poisoning loops.
 
-With **Version 2.0**, AgenticTribunal transitions to a fully heterogeneous multi-model architecture, where each actor in the institution can independently use different models and parameters discoverable dynamically from local or cloud servers. NOTE: At this time, all elements work with local LLM implementations except the initial system  prompt generation 
-<img width="1327" height="785" alt="Screenshot 2026-06-12 204125" src="https://github.com/user-attachments/assets/e04d49b0-580e-4190-8b4a-17c2ab51b84e" />
+With **Version 3.5**, AgenticTribunal introduces a robust **Human-in-the-Loop Deliberation Workspace**, allowing a human trial supervisor or user to act as a permanent seated juror with direct routing, quote promotion, targeted auditing, and live sentiment-sway tracking.
 
 ---
 
-## 🎯 Project Core Purpose
+## 🎯 Institutional Framework
 When querying complex concepts using individual LLMs, outputs often suffer from self-reinforcing biases or flat justifications. AgenticTribunal counters this by instituting a structured, adversarial deliberation structure:
-
-<img width="850" height="628" alt="Screenshot 2026-06-12 215903" src="https://github.com/user-attachments/assets/183dd4d0-7e51-4faa-934e-b18c5c239341" />
 
 1. **The Defender Attorney (Advocate):** Focuses exclusively on building a robust, logical, and evidence-driven case in favor of the core claim.
 2. **The Prosecuting Attorney (Critic):** Identifies hidden assumptions, logical fallacies, systemic vulnerabilities, and structural weaknesses in the Defender's case.
 3. **The Chief Presiding Judge (Synthesis):** Resolves contradictions, monitors logical integrity, provides interim feedback guidance, and delivers a rigorous, objective final synthesis and verdict.
 4. **The Seated Citizen Jury (Empirical Sway Tracker):** A fully customizable group of non-expert citizens with unique professional biases (e.g., Forensic Accountant, UX Designer, Carpenter) who measure real-world message clarity.
-<img width="211" height="305" alt="Screenshot 2026-06-12 210727" src="https://github.com/user-attachments/assets/70a05692-0124-419d-b3a0-068de9ff3d33" />
+5. **The Human Juror Panel (Permanent seat):** Your direct live notes, active conviction ratings, feedback directives, and targeted audit logs are directly compiled into active dialogue.
 
 ---
 
@@ -32,40 +29,52 @@ To enrich the core debate pathway, users can activate optional specialist audit 
 
 ---
 
+## 🚀 Key Innovations in Version 3.5
+
+### 1. Juror Chambers & Workspace (Self-Reflection Loops)
+* **Permanent Juror Seat:** Actively observe trials and insert direct remarks.
+* **Active Conviction Ratio Slider:** Dynamically shift your conviction percentage (0–100%) between **🛡️ Defendant** and **Prosecutor ⚔️**. Your current bias controls the simulated sentiments and metrics of the jury panel.
+* **Court Reflective Triggers:** Quick-shortcut buttons allow inserting structured evaluation filters (e.g., *Overlooked Risks* and *Empirical Check*) into your draft notes to steer AI deliberations.
+
+### 2. Highlight Promotion Suite
+Copy and promote critical passages stated by any speaking actor directly to the **Structured Institutional Record** handled by the Clerk of the Court. You can tag quotes into categories:
+* 📌 **Key Fact**
+* ⚠️ **Key Objection**
+* 📁 **Important Evidence**
+* 🧩 **Hidden Assumption**
+* 🔧 **Practical Concern**
+* ❤️ **Ethical Concern**
+* ❓ **Unresolved Question**
+
+*These high-weight artifacts are permanently integrated into the core transcript layers of all subsequently running turns.*
+
+### 3. Targeted Drill-Down Flags (Multi-Agent Routing)
+Flag and direct specific dialogue excerpts to a designated agent (e.g., prosecutor or a practical judge). The system injects a targeted instruction forcing that specific actor to review, audit, defend, or reconcile the selected stance during their next speaking step.
+
+### 4. Actor Turn Log Viewer & Preservations
+Open the **Log Drawer** on any active actor to inspect their historical speech outputs, word count metrics, and compression settings.
+* **"Never Compress" Passages:** Mark highly specific text passages to stay entirely raw during memory-truncation thresholds, protecting core evidence from degradation.
+
+### 5. Automated Multi-Stage Memory Compression
+An interactive slider permits memory compression limits ranging from 2,000 to 20,000 words. When live debate transcripts cross your chosen limit:
+* The core LLM context is restricted to structured abstract records and syntheses.
+* This isolates institutional history, preventing contextual poisoning and chat-loop degradation.
+
+### 6. Interactive Minority Concern Reports
+If you raise concerns that aren't fully resolved by adversarial attorneys, the Clerk of the Court automatically evaluates your text, publishing official **Minority Concern Alerts**:
+* **Observation:** The direct human concern compiled.
+* **Addressing Actors:** Auto-classification of which agents responded to the point.
+* **Unresolved Gaps:** Critical documentation of failures by the team to satisfy the issue.
+* **Verdict Recommendation:** Clerk procedural next-steps.
+
+---
+
 ## 🎨 Visual Identity & Theme
 Styled using the **Professional Polish (Indigo Slate Edition)** theme, the client workspace maximizes readable screen real-estate with functional structural density:
 * **Slate-100 Canvas base** matched with high-contrast, clean Indigo and Velvet accents for executive professionalism.
 * **Dual-Column layout** separating system configurations and parameters cleanly from interactive runtime feed elements.
 * **Granular Actor Settings Ribbon:** Inline switches directly in cards to adjust model selection, custom temperature, and toggle individual agent inclusion.
 * **Automated & Manual step controls** allowing developers to play through sequential workflows in real-time or examine step changes one-by-one.
-
----
-
-## 🚀 Key Features in Version 2.1
-
-### 1. Dynamic Debate Round Configurator (1 to 5 Rounds)
-Users can seamlessly customize argument length via the dynamic rounds slider in the **Tribunal Constraints Panel**, scaling the entire debate structure dynamically from 1 to 5 rounds.
-
-### 2. Double-Blind Isolation Architecture
-To eliminate first-mover advantages, Defendant and Prosecutor arguments are processed securely in parallel. They cannot inspect each other's current contemporaneous draft or refinement responses—only neutral round synopses and finished messages from previous rounds are visible.
-
-### 3. Context Compression & Smart Summarization
-At the close of each debate round, a dedicated neutral LLM processor automatically digests the entire raw debate dialogue of that round, producing a precise consolidated synthesis. By passing ONLY these condensed round summaries into subsequent rounds, the system prevents massive prompt bloated context window memory and avoids browser-clipping.
-
-### 4. Response Size Limits Slider
-An interactive slider allows users to control model word limit counts (ranging from 200 up to 2500 words). The constraint is dynamically enforced server-side and client-side, ensuring complete, structured outputs that conclude naturally without getting arbitrarily trimmed.
-
-### 5. Seated Jury Advisory Toggle (No-Decide Power)
-The jury strictly acts as an advisory panel that highlights critical logical inconsistencies, hidden loopholes, or biases directly to the Chief Presiding Judge. The decision responsibility rests completely with the Judge. Users can toggle whether the Jury critiques dynamically after each round, or performs a single-pass review of the final arguments.
-
-### 6. Heterogeneous Model Assignment
-Actors are no longer tied to one global default LLM. The system discovers available cloud and local Ollama server models dynamically, exposing dropdown overrides and precise temperature sliders on the active panels. This allows you to combine high-capacity reasoning models (like Gemini 2.5 Pro) with ultra-fast local completions models seamlessly.
-
-### 7. Fully Customizable Jurors
-A dynamic customization framework enables you to construct a bespoke citizen jury. You can add, edit names, select a profession preset from our curated pool, select custom models, and configure temperatures to measure the clarity of complex claims across highly specific customer or audience contexts.
-
-### 8. Real-Time Minority Reports
-When the seated jury splits its leans, AgenticTribunal automatically calculates and compiles a highlighted **Minority Report** card. It displays dissenting opinions, quotes from the dissenting transcript, and details why certain jurors remain unpersuaded, preserving intellectual diversity.
 
 ---
 
@@ -78,15 +87,15 @@ When the seated jury splits its leans, AgenticTribunal automatically calculates 
                              |          ^
    1. Generate System       |          |  4. Live UI Sway &
       Prompts Request       v          |     Dialogue Update
-                    +-------+----------+-------+
-                    |  Express-Vite API Proxy  |
-                    +-------+----------+-------+
+                     +-------+----------+-------+
+                     |  Express-Vite API Proxy  |
+                     +-------+----------+-------+
                              |          ^
       2. Isolated Session    |          |  3. Clean text reply
          State Transcript    v          |     (No contamination)
-                    +-------+----------+-------+
-                    |     Gemini / Local LLM   |
-                    +--------------------------+
+                     +-------+----------+-------+
+                     |     Gemini / Local LLM   |
+                     +--------------------------+
 ```
 
 ### Avoiding Context Poisoning:

@@ -80,26 +80,74 @@ Format output EXACTLY as this JSON structure:
   }
 }`;
 
-  const response = await fetch(`${endpoint}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...(modelConfig.apiKey ? { "Authorization": `Bearer ${modelConfig.apiKey}` } : {})
-    },
-    body: JSON.stringify({
-      model: modelConfig.modelName || "llama3.1",
-      messages: [
-        { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
-        { role: "user", content: architectPrompt }
-      ],
-      temperature: 0.3,
-      response_format: { type: "json_object" }
-    })
-  });
+  let response;
+  try {
+    response = await fetch(`${endpoint}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(modelConfig.apiKey ? { "Authorization": `Bearer ${modelConfig.apiKey}` } : {})
+      },
+      body: JSON.stringify({
+        model: modelConfig.modelName || "llama3.1",
+        messages: [
+          { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
+          { role: "user", content: architectPrompt }
+        ],
+        temperature: 0.3,
+        response_format: { type: "json_object" }
+      })
+    });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Local model prompt generation returned status ${response.status}: ${errorText}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      // If error is about response_format, retry without it
+      if (response.status === 400 && (errorText.includes("response_format") || errorText.includes("schema") || errorText.includes("type"))) {
+        response = await fetch(`${endpoint}/chat/completions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(modelConfig.apiKey ? { "Authorization": `Bearer ${modelConfig.apiKey}` } : {})
+          },
+          body: JSON.stringify({
+            model: modelConfig.modelName || "llama3.1",
+            messages: [
+              { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
+              { role: "user", content: architectPrompt }
+            ],
+            temperature: 0.3
+          })
+        });
+      } else {
+        throw new Error(`Local model prompt generation returned status ${response.status}: ${errorText}`);
+      }
+    }
+  } catch (err: any) {
+    // If connection/fetch completely failed or has a bad parameter, try a clean call without response_format
+    try {
+      response = await fetch(`${endpoint}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(modelConfig.apiKey ? { "Authorization": `Bearer ${modelConfig.apiKey}` } : {})
+        },
+        body: JSON.stringify({
+          model: modelConfig.modelName || "llama3.1",
+          messages: [
+            { role: "system", content: "You are a helpful assistant that outputs ONLY valid JSON response as instructed by user prompt." },
+            { role: "user", content: architectPrompt }
+          ],
+          temperature: 0.3
+        })
+      });
+    } catch (innerErr: any) {
+      throw new Error(`Local model prompt generation failed: ${err.message || err}. Retry error: ${innerErr.message || innerErr}`);
+    }
+  }
+
+  if (!response || !response.ok) {
+    const errorText = response ? await response.text() : "No response";
+    throw new Error(`Local model prompt generation returned status ${response ? response.status : "unknown"}: ${errorText}`);
   }
 
   const data = await response.json();

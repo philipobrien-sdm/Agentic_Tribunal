@@ -10,9 +10,10 @@ interface AgentCardProps {
   onUpdateSystemPrompt: (id: string, newPrompt: string) => void;
   onUpdateAgent?: (id: string, updatedFields: Partial<AgentPersona>) => void;
   availableModels?: string[];
+  onViewLog?: (id: string) => void;
 }
 
-export default function AgentCard({ agent, isSpeaking, isThinking, onUpdateSystemPrompt, onUpdateAgent, availableModels }: AgentCardProps) {
+export default function AgentCard({ agent, isSpeaking, isThinking, onUpdateSystemPrompt, onUpdateAgent, availableModels, onViewLog }: AgentCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [editedPrompt, setEditedPrompt] = useState(agent.systemPrompt);
   const [isSaving, setIsSaving] = useState(false);
@@ -149,16 +150,29 @@ export default function AgentCard({ agent, isSpeaking, isThinking, onUpdateSyste
 
       {/* Configuration settings ribbon */}
       <div className="px-4 py-2 bg-slate-100/50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
-        <label className="flex items-center gap-1.5 font-medium text-slate-700 cursor-pointer select-none">
-          <input
-            id={`checkbox-enable-${agent.id}`}
-            type="checkbox"
-            checked={isEnabled}
-            onChange={(e) => onUpdateAgent?.(agent.id, { isEnabled: e.target.checked })}
-            className="rounded text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5 border-slate-300"
-          />
-          <span>Active in Session</span>
-        </label>
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-1.5 font-medium text-slate-700 cursor-pointer select-none">
+            <input
+              id={`checkbox-enable-${agent.id}`}
+              type="checkbox"
+              checked={isEnabled}
+              onChange={(e) => onUpdateAgent?.(agent.id, { isEnabled: e.target.checked })}
+              className="rounded text-indigo-600 focus:ring-indigo-500 w-3.5 h-3.5 border-slate-300"
+            />
+            <span>Active in Session</span>
+          </label>
+
+          {onViewLog && agent.id !== "human_juror" && (
+            <button
+              type="button"
+              onClick={() => onViewLog(agent.id)}
+              className="px-2 py-0.5 bg-white border border-slate-200 hover:border-slate-300 rounded text-[10px] font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
+            >
+              <FileText className="w-3 h-3 text-indigo-500" />
+              <span>View Log</span>
+            </button>
+          )}
+        </div>
 
         <div className="flex items-center gap-1.5">
           <span className="text-slate-500">Model:</span>
