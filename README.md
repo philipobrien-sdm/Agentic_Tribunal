@@ -1,6 +1,8 @@
 # AgenticTribunal ⚖️
 ## LLM Multi-Agent Debate Arena (v3.5.0 — Persistent Actor Archives & Human-in-the-Loop)
 
+<img width="1322" height="783" alt="Screenshot 2026-06-13 202714" src="https://github.com/user-attachments/assets/c60e0c1f-1882-4325-9d5d-a681547c08f3" />
+
 AgenticTribunal is a high-fidelity, adversarial multi-agent debate and legal institutional simulation. By isolating agents in sequential sessions and leveraging a professional prompt compiler, the system breaks the boundaries of traditional single-threaded LLM biases, logical echo chambers, and context-poisoning loops.
 
 With **Version 3.5**, AgenticTribunal introduces a robust **Human-in-the-Loop Deliberation Workspace**, allowing a human trial supervisor or user to act as a permanent seated juror with direct routing, quote promotion, targeted auditing, and live sentiment-sway tracking.
@@ -9,12 +11,13 @@ With **Version 3.5**, AgenticTribunal introduces a robust **Human-in-the-Loop De
 
 ## 🎯 Institutional Framework
 When querying complex concepts using individual LLMs, outputs often suffer from self-reinforcing biases or flat justifications. AgenticTribunal counters this by instituting a structured, adversarial deliberation structure:
-
+<img width="850" height="628" alt="Screenshot 2026-06-12 215903" src="https://github.com/user-attachments/assets/4af42443-4789-4fcc-aecf-04050be9b55e" />
 1. **The Defender Attorney (Advocate):** Focuses exclusively on building a robust, logical, and evidence-driven case in favor of the core claim.
 2. **The Prosecuting Attorney (Critic):** Identifies hidden assumptions, logical fallacies, systemic vulnerabilities, and structural weaknesses in the Defender's case.
 3. **The Chief Presiding Judge (Synthesis):** Resolves contradictions, monitors logical integrity, provides interim feedback guidance, and delivers a rigorous, objective final synthesis and verdict.
 4. **The Seated Citizen Jury (Empirical Sway Tracker):** A fully customizable group of non-expert citizens with unique professional biases (e.g., Forensic Accountant, UX Designer, Carpenter) who measure real-world message clarity.
 5. **The Human Juror Panel (Permanent seat):** Your direct live notes, active conviction ratings, feedback directives, and targeted audit logs are directly compiled into active dialogue.
+<img width="211" height="305" alt="Screenshot 2026-06-12 210727" src="https://github.com/user-attachments/assets/6171fb34-84c1-4784-9a1a-2bdffdcf19bf" />
 
 ---
 
